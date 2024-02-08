@@ -1,2 +1,2 @@
-# dotfiles
-personal bashrc
+cd ~
+ln -s dotfiles/.bashrc .bashrc
