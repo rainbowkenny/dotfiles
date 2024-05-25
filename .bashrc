@@ -117,7 +117,6 @@ if ! shopt -oq posix; then
 fi
 
 export CPPUTEST_HOME=/opt/cpputest/
-export OPENAI_API_KEY='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'
 stty -ixon
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
@@ -130,6 +129,7 @@ alias barys='balena-yocto-scripts/build/barys -d -m imx8mp-cgt-sx8p --shared-dow
 alias gd='git diff'
 
 alias gb='git branch'
+alias gbf='git branch -a|fzf'
 alias gbrf='git branch -r|fzf'
 
 # view a commit from a remote branch
@@ -140,7 +140,7 @@ alias gcfr='git checkout $(git ls-tree -r $(git branch -r|fzf --sync) --name-onl
 alias gc='git commit -m '
 alias gp='git push'
 alias gca='git commit --amend --no-edit'
-
+alias cherrypick='git cherry-pick $(git log --reflog --oneline|fzf --multi|cut -c -6)'
 alias gaa='git add .'
 alias gau='git add -u'
 alias gpf='git push -f'
@@ -152,11 +152,12 @@ alias revertAll='git checkout HEAD .'
 alias revertFile='git restore $(git diff --name-only|fzf)'
 alias gpu='git push -u origin $(git rev-parse --abbrev-ref HEAD)'
 alias grc='git rebase --continue'
-alias gcbf='git checkout $(gb|fzf)'
-alias fetchfile='f() { selected_branch=$(git branch -r | fzf) && selected_files=$(git ls-tree -r --name-only $selected_branch | fzf --multi --preview "echo {} && git show $selected_branch:{}") && git fetch origin && for file in $selected_files; do git checkout $selected_branch -- "$file"; done; unset -f f; }; f'
-alias grf='git rebase $(gb|fzf)'
+alias checkout='git checkout $(gb|fzf)'
+# alias fetchfile='f() { selected_branch=$(git branch -r | fzf) && selected_files=$(git ls-tree -r --name-only $selected_branch | fzf --multi --preview "echo {} && git show $selected_branch:{}") && git fetch origin && for file in $selected_files; do git checkout $selected_branch -- "$file"; done; unset -f f; }; f'
+alias fetchfile='selected_branch=$(git branch -r | fzf) && selected_files=$(git ls-tree -r --name-only $selected_branch | fzf --multi --preview "echo {} && git show $selected_branch:{}") && git fetch origin && for file in $selected_files; do git checkout $selected_branch -- "$file"; done'
+alias grf='git rebase $(git branch -a|fzf)'
 alias grif='git rebase -i $(git log --oneline|fzf|cut -c -6)~'
-alias gaf='git add $(git diff --name-only|fzf)'
+alias gaf='git add $(git diff --name-only|fzf --multi)'
 alias gdf='git diff $(git diff --name-only|fzf)'
 alias gsf='git show $(git log --oneline|fzf|cut -c -6)'
 
