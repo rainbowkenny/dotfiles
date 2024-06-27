@@ -119,46 +119,6 @@ fi
 export CPPUTEST_HOME=/opt/cpputest/
 stty -ixon
 
-alias gl='git log --oneline -n 10 --graph'
-alias gs='git status'
-alias gr='git remote -v'
-alias bc='balena-yocto-scripts/build/barys -r -d -m imx8mp-cgt-sx8p --shared-downloads ~/Documents/Balena-dunfell/downloads --shared-sstate ~/Documents/Balena-dunfell/sstate-cache'
-alias barys='balena-yocto-scripts/build/barys -d -m imx8mp-cgt-sx8p --shared-downloads ~/Documents/Balena-dunfell/downloads --shared-sstate ~/Documents/Balena-dunfell/sstate-cache'
-alias gd='git diff'
-
-alias gb='git branch'
-alias gbf='git branch -a|fzf'
-alias gbrf='git branch -r|fzf'
-
-# view a commit from a remote branch
-alias gsrf='git show $(git log --oneline $(git branch -r|fzf --sync)|fzf --sync|cut -c -6)'
-
-# checkout a file from a remote git branch
-alias gcfr='git checkout $(git ls-tree -r $(git branch -r|fzf --sync) --name-only|fzf --sync)'
-alias gc='git commit -m '
-alias gp='git push'
-alias gca='git commit --amend --no-edit'
-alias cherrypick='git cherry-pick $(git log --reflog --oneline|fzf --multi|cut -c -6)'
-alias gaa='git add .'
-alias gau='git add -u'
-alias gpf='git push -f'
-alias grc='git rebase --continue'
-alias gsu='git submodule update --init --recursive'
-alias unstageAll='git reset HEAD'
-alias unstageFile='git restore --staged $(git diff --cached --name-only|fzf)'
-alias revertAll='git checkout HEAD .'
-alias revertFile='git restore $(git diff --name-only|fzf)'
-alias gpu='git push -u origin $(git rev-parse --abbrev-ref HEAD)'
-alias grc='git rebase --continue'
-alias checkout='git checkout $(gb|fzf)'
-# alias fetchfile='f() { selected_branch=$(git branch -r | fzf) && selected_files=$(git ls-tree -r --name-only $selected_branch | fzf --multi --preview "echo {} && git show $selected_branch:{}") && git fetch origin && for file in $selected_files; do git checkout $selected_branch -- "$file"; done; unset -f f; }; f'
-alias fetchfile='selected_branch=$(git branch -r | fzf) && selected_files=$(git ls-tree -r --name-only $selected_branch | fzf --multi --preview "echo {} && git show $selected_branch:{}") && git fetch origin && for file in $selected_files; do git checkout $selected_branch -- "$file"; done'
-alias grf='git rebase $(git branch -a|fzf)'
-alias grif='git rebase -i $(git log --oneline|fzf|cut -c -6)~'
-alias gaf='git add $(git diff --name-only|fzf --multi)'
-alias gdf='git diff $(git diff --name-only|fzf)'
-alias gsf='git show $(git log --oneline|fzf|cut -c -6)'
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
