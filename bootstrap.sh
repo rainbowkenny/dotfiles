@@ -6,6 +6,7 @@ HOMEBREW_BIN=/opt/homebrew/bin/brew
 OH_MY_ZSH_DIR="$HOME/.oh-my-zsh"
 VIMRC_REPO=git@github.com:rainbowkenny/vimrc.git
 VIMRC_DIR="$HOME/vimrc"
+TAILSCALE_CLI=/Applications/Tailscale.app/Contents/MacOS/Tailscale
 
 install_command_line_tools() {
   if xcode-select -p >/dev/null 2>&1; then return; fi
@@ -56,6 +57,12 @@ install_vim_config() {
   vim +PlugInstall +qall
 }
 
+prompt_tailscale_login() {
+  if "$TAILSCALE_CLI" status >/dev/null 2>&1; then return; fi
+  open -a Tailscale
+  echo "Log in to Tailscale from its menu bar icon."
+}
+
 install_command_line_tools
 install_homebrew
 install_brew_packages
@@ -63,4 +70,5 @@ install_uv
 install_oh_my_zsh
 link_zsh_config
 install_vim_config
+prompt_tailscale_login
 echo "Done. Open a new terminal to load the shell config."
