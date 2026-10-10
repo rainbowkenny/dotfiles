@@ -48,6 +48,7 @@ link_with_backup() {
 link_zsh_config() {
   link_with_backup "$DOTFILES_DIR/zsh/.zshrc" "$HOME/.zshrc"
   link_with_backup "$DOTFILES_DIR/zsh/.zprofile" "$HOME/.zprofile"
+  link_with_backup "$DOTFILES_DIR/keymappings.sh" "$HOME/.keymappings.sh"
 }
 
 install_vim_config() {
